@@ -20,9 +20,9 @@ public class Image {
     public void setPixel(int x, int y, Color color) {
 
         int index = (width* y * 3) + (x * 3);
-        doubles[index] = Math.pow(color.r, 1 / 2.2);
-        doubles[index + 1] = Math.pow(color.g, 1 / 2.2);
-        doubles[index + 2] = Math.pow(color.b, 1 / 2.2);
+        doubles[index] = Math.pow(color.r, 1 /2.2);
+        doubles[index + 1] = Math.pow(color.g, 1 /2.2);
+        doubles[index + 2] = Math.pow(color.b, 1 /2.2);
     }
 
     public void write(String filename) {
