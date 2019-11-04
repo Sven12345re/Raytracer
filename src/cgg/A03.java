@@ -232,17 +232,6 @@ public class A03 {
                 System.out.println("----------------------------");
             }
         }
-        class ConstantColor {
-            Color color;
-
-            ConstantColor(Color color) {
-                this.color = color;
-            }
-
-            Color getColor(double x, double y) {
-                return color;
-            }
-        }
 
         class DrawSpehre{
 
@@ -287,15 +276,8 @@ public class A03 {
         //diese Klasse austauschen
 
         Image image = new Image(width, height);
-
-        double radius = 1;
-        Point mittelpunkt = point(0,0,-2);
-        Sphere sphere = new Sphere(mittelpunkt, radius,red);
-
         DrawSpehre test23 = new DrawSpehre();
-
         TestValues test = new TestValues();
-
         test.cameraTest();
 
         for (int x = 0; x != width; x++) {
@@ -313,11 +295,9 @@ public class A03 {
                     }
                 }
                 double x2 = x;
-                double prozent = x2/160*100;
+                double prozent = x2/width*100;
                 int prozentInt = (int)prozent;
                 System.out.println("Bitte warten!" + prozentInt + "%");
-               // image.setPixel(x, y, test23.pixelColor(x, y));
-
                 image.setPixel(x, y, Color.divide(color, n*n));
 
             }

@@ -78,6 +78,7 @@ public class A02 {
         Comparator<Circle> byRadius = Comparator.comparing(Circle::getRadius);
         Collections.sort(circles, byRadius.reversed());
 
+
         for (int i = 0; i < circles.size(); i++) {
 
             for (int x = 0; x != width; x++) {
