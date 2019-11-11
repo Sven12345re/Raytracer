@@ -41,8 +41,6 @@ public class Plane implements Shape {
 
             if (r.tmin < t && r.tmax > t) {
                 Direction positionHitPoint = Point.multiply(t, r.direction);
-                //Vec3 normalHit = Vec3.divide(subtract(positionHitPoint, planeCenterPoint), sphereRadius);
-
                 Point point = point(positionHitPoint.x,positionHitPoint.y,positionHitPoint.z);
                 Hit hit = new Hit(point, material, planeNormalVector, t);
                 return hit;
