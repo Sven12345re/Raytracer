@@ -1,11 +1,14 @@
 package cgg;
 
 import cgtools.*;
+
+import java.io.IOException;
+
 import static cgtools.Color.*;
 
 public class A01 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         final int width = 100;
         final int height = 100;
         final String filename14 = "doc/a01-image.png";

@@ -2,6 +2,7 @@ package cgg;
 
 import cgtools.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,7 +12,7 @@ import static cgtools.Color.*;
 
 public class A02 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         final int width = 160;
         final int height = 90;
         final String filename21 = "doc/a02-discs.png";

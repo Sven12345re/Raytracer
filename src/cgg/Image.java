@@ -1,37 +1,42 @@
 package cgg;
 
-import cgtools.*;
+import cgtools.ImageWriter;
+import cgtools.Color;
+import java.io.IOException;
 
 public class Image {
-    private int width;
 
-    private int height;
-
-    private double[] doubles;
+    int width;
+    int height;
+    int pixel;
+    double data[];
 
     public Image(int width, int height) {
-
-        this.doubles = new double[width * height *3];
         this.width = width;
         this.height = height;
-
+        data = new double [width*height*3];
     }
 
     public void setPixel(int x, int y, Color color) {
 
-        int index = (width* y * 3) + (x * 3);
-        doubles[index] = Math.pow(color.r, 1 /2.2);
-        doubles[index + 1] = Math.pow(color.g, 1 /2.2);
-        doubles[index + 2] = Math.pow(color.b, 1 /2.2);
+        // Mit Gamma Korrektur
+        pixel = y*width*3 + x*3;
+        data[pixel]= Math.pow(color.r, 1/2.2);
+        data[pixel+1] = Math.pow(color.g,1/2.2);
+        data[pixel + 2] = Math.pow(color.b, 1/2.2);
+
+        //////// Ohne Gamma Korrektur
+//		pixel = y*width*3 + x*3;
+//		data[pixel]= color.x;
+//		data[pixel+1] = color.y;
+//		data[pixel + 2] = color.z;
+
+
     }
 
-    public void write(String filename) {
+    public void write(String filename) throws IOException {
 
-        cgtools.ImageWriter.write(filename, doubles, width, height);
-    }
+        ImageWriter.write(filename, data, width, height);
 
-    private void notYetImplemented() {
-        System.out.println("Please complete the implementation of class cgg.Image as part of assignment 1.");
-        System.exit(1);
     }
 }

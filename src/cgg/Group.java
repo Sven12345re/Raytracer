@@ -1,44 +1,45 @@
 package cgg;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class Group implements Shape{
 
-    //Atribute
-
+public class Group implements Shape {
     double t;
     List<Shape> shapes;
     Hit hit;
 
 
-    //Konstruktor
-
     public Group(List<Shape> shapes) {
-
         this.shapes = shapes;
+
     }
 
-    public Hit intersectWith(Ray ray) {
+    @Override
+    public Hit intersectWith(Ray r) {
 
         List<Hit> hitList = new ArrayList<Hit>();
-
         for (Shape shape : shapes) {
-            hit = shape.intersectWith(ray);
-            if(hit != null) {
+
+            hit = shape.intersectWith(r);
+            if (hit != null) {
                 hitList.add(hit);
             }
         }
-        if(!hitList.isEmpty()) {
 
-            //hitList.sort(Comparator.comparing(Hit::getX));
-
-
+        if (!hitList.isEmpty()){
+            Collections.sort(hitList);
             return hitList.get(0);
-        }else {
+        }
+        else {
             return null;
         }
 
 
     }
 }
+
+
+
 

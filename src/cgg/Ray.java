@@ -4,24 +4,35 @@ import cgtools.Direction;
 import cgtools.Point;
 import cgtools.Vector;
 
-class Ray{
-    Point urpsrung;
-    Direction direction;
-    int tMin;
-    int tMax;
 
-    public Ray(Point ursprung, Direction direction, int tMin, int tMax){
-        this.urpsrung = ursprung;
+
+public class Ray {
+
+    //Attribute
+    public Point originPoint; //Ursprung des Strahls
+    public Direction direction;   //Richtung des Strahls
+    public double tmin;      //Minimale Länge
+    public double tmax;      //Maximale Länge
+
+    //Konstruktor
+    public Ray(Point originPoint, Direction direction, double tmin, double tmax) {
+        this.originPoint = originPoint;
         this.direction = direction;
-        this.tMin = tMin;
-        this.tMax = tMax;
+        this.tmin = tmin;
+        this.tmax = tmax;
     }
 
 
-    public Vector pointAt(double t){
+    public Point pointAt(double t) {
+         /*
+   Berechnet für einen Parameter t einen Punkt auf dem Strahl
+    newPoint = originPoint + t * direction
+     */
 
-        Vector strahlpunkt = Vector.add(urpsrung, Vector.multiply(t,direction));
-
-        return strahlpunkt;
+        Point pointAt;
+        pointAt = Point.add(originPoint, (Point.multiply(t, direction)));
+        return pointAt;
     }
+
+
 }

@@ -2,37 +2,34 @@ package cgg;
 
 import cgtools.*;
 import static cgtools.Vector.point;
+import static cgtools.Vector.direction;
+import static java.lang.Float.POSITIVE_INFINITY;
 
 public class Background implements Shape {
 
-    private Color color;
+    Color backgroundColor;
+    Point positionHitPoint;
+    Direction normalVectorHitPoint;
+    Material material;
 
 
-/*  public static Background of(Vec3 color, Material material) {
-    return new Background(color, material);
-  }*/
-
-    public Background(Color color) {
-        this.color = color;
+    public Background(Material material) {
+        this.material = material;
 
     }
 
-
-    public Hit intersectWith(Ray ray) {
-        @SuppressWarnings("static-access")
-
-        Vector test = Vector.multiply(ray.direction, Double.POSITIVE_INFINITY);
-
-        double pointX = test.x;
-        double pointY = test.y;
-        double pointZ = test.z;
+    @Override
+    public Hit intersectWith(Ray r) {
 
 
-        Point x = point(pointX,pointY,pointZ);
-        Vector one = Vector.zero;
-        Double a = Double.POSITIVE_INFINITY;
-         Hit hit = new Hit(a, x, one , color);
+        Direction x = Direction.multiply(r.direction, POSITIVE_INFINITY);
+        Point norm = r.originPoint;
+        Hit hit = new Hit(norm, material, x, POSITIVE_INFINITY);
 
         return hit;
     }
+
+
+
 }
+

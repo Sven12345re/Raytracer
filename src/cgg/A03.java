@@ -8,10 +8,12 @@ import static cgtools.Vector.*;
 
 import javax.naming.directory.DirContext;
 
+import java.io.IOException;
+
 import static cgtools.Color.*;
 
 public class A03 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         final int width = 160;
         final int height = 90;
         final String filename34 = "doc/a03-one-sphere.png";

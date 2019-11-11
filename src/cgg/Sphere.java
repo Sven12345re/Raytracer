@@ -1,55 +1,76 @@
 package cgg;
 
 import cgtools.*;
-
 import static cgtools.Vector.point;
+import static cgtools.Vector.direction;
 
-class Sphere implements Shape{
-    Point mittelpunkt;
-    double radius;
-    Color color;
 
-    public Sphere(Point mittelpunkt, double radius, Color color){
-        this.mittelpunkt = mittelpunkt;
-        this.radius = radius;
-        this.color = color;
+import static java.lang.Math.sqrt;
 
+public class Sphere implements Shape {
+
+    double sphereRadius;
+    Point sphereCenterPoint;
+    Material material;
+    double t;
+
+    public Sphere(Point sphereCenterPoint, double sphereRadius, Material material) {
+        this.sphereRadius = sphereRadius;
+        this.sphereCenterPoint = sphereCenterPoint;
+        this.material = material;
     }
 
-    public Hit intersectWith(Ray ray) {
-        Vector oc = Vector.subtract(ray.urpsrung,mittelpunkt);
-        double a = Vector.dotProduct(ray.direction, ray.direction);
-        double b = 2 * Vector.dotProduct(ray.direction, oc);
-        double c = Vector.dotProduct(oc,oc)-radius*radius;
+    @Override
+    public Hit intersectWith(Ray r) {
+
+        Direction oc = Direction.subtract(r.originPoint, sphereCenterPoint); //x0
+        Direction direction = r.direction; //d
+
+        // Folie 72
+        // a = d^2
+        double a = Direction.dotProduct(r.direction, r.direction);
+
+        // b = 2 * x0 * d
+        double b = 2 * Direction.dotProduct(r.direction, oc);
+
+        // c = x0^2-r^2
+        double c = Direction.dotProduct(oc, oc) - sphereRadius * sphereRadius;
+
+        //Wurzel von abc Formel berechnen
         double discriminant = b * b - 4 * a * c;
 
-        if(a == 0 || discriminant < 0){
-
+        //weil nicht durch 0 geteilt werden darf (a==0) und man keine Wurzel aus negativen Zahlen ziehen darf
+        if (a == 0 || discriminant < 0) {
             return null;
-        }else{
-            double t1 = (-b - Math.sqrt(discriminant)) /2;
-            double t2 = (-b + Math.sqrt(discriminant)) /2;
-            double t = (t1 < t2) ? t1 : t2;
-
-            if(ray.tMin < t && ray.tMax > t){
-
-                Vector test = Vector.multiply(t, ray.direction);
-
-                double pointX = test.x;
-                double pointY = test.y;
-                double pointZ = test.z;
-
-                Point x = point(pointX,pointY,pointZ);
+        } else {
+            double t1 = (-b - sqrt(discriminant)) / 2;
+            double t2 = (-b + sqrt(discriminant)) / 2;
 
 
-                Vector normal = Vector.divide(Vector.subtract(x,mittelpunkt),radius);
-                Hit hit = new Hit(t,x,normal,color);
-                return hit;
+            if (t1 < t2) {
+                t = t1;
+            } else {
+                t = t2;
             }
 
+            //mit Schnittpunkt Hit erzeugen
+
+            //Testen ob in t zwischen tmin und tmax liegt
+            if (r.tmin < t && r.tmax > t) {
+
+
+                Direction positionHitPoint = Point.multiply(t, r.direction);
+                Direction direction2 = direction(positionHitPoint.x,
+                                        positionHitPoint.y, positionHitPoint.z);
+                Direction direction3 = direction(sphereCenterPoint.x, sphereCenterPoint.y, sphereCenterPoint.z);
+                Direction normal = Direction.divide(Direction.subtract(direction2, direction3), sphereRadius); //divide(subtract(x, center), radius);
+
+                Point point = point(positionHitPoint.x, positionHitPoint.y, positionHitPoint.z);
+                Hit hit = new Hit(point, material, normal, t);
+                return hit;
+
+            }
             return null;
         }
-
-
     }
 }

@@ -5,35 +5,33 @@ import cgtools.*;
 
 import static cgtools.Vector.point;
 
+
+
 public class Plane implements Shape {
     Point planeCenterPoint;
     Direction planeNormalVector;
-    Color planeColor;
+    Material material;
     double t;
 
-
-    public Plane(Point planeCenterPoint, Direction planeNormalVector, Color planeColor) {
+    public Plane(Point planeCenterPoint, Direction planeNormalVector, Material material) {
         this.planeCenterPoint = planeCenterPoint;
         this.planeNormalVector = planeNormalVector;
-        this.planeColor = planeColor;
+        this.material = material;
 
     }
 
 
     @Override
-    public Hit intersectWith(Ray ray) {
+    public Hit intersectWith(Ray r) {
 
-        @SuppressWarnings({ "unused", "static-access" })
-        Vector oc = Vector.subtract(ray.urpsrung, planeCenterPoint); // x0
+        Direction oc = Point.subtract(r.originPoint, planeCenterPoint); // x0
 
         // t = (p*n - n*x0)/d*n
         // t = Schnittpunkt, p = Ankerpunkt , n = Normalenvektor, d = rayDirection,
 
         //Vec3 numerator = Vec3.subtract(Vec3.dotProduct(planeCenterPoint, planeNormalVector),Vec3.dotProduct(planeNormalVector,oc)); //nenner
-        @SuppressWarnings("static-access")
-        double numerator = (Vector.dotProduct(planeCenterPoint, planeNormalVector)) - Vector.dotProduct(planeNormalVector, ray.urpsrung);
-        @SuppressWarnings("static-access")
-        double denominator = Vector.dotProduct(ray.direction, planeNormalVector); //zähler
+        double numerator = (Direction.dotProduct(planeCenterPoint, planeNormalVector)) - Direction.dotProduct(planeNormalVector, r.originPoint);
+        double denominator = Direction.dotProduct(r.direction, planeNormalVector); //zähler
 
         if (denominator == 0) {
             return null;
@@ -41,20 +39,12 @@ public class Plane implements Shape {
         else {
             t = numerator/denominator;
 
-            if (ray.tMin < t && ray.tMax > t) {
-                @SuppressWarnings("static-access")
-
+            if (r.tmin < t && r.tmax > t) {
+                Direction positionHitPoint = Point.multiply(t, r.direction);
                 //Vec3 normalHit = Vec3.divide(subtract(positionHitPoint, planeCenterPoint), sphereRadius);
-                // double t = dotProduct(positionHitPoint, planeNormalVector) / denominator;
 
-                Vector test = Vector.multiply(ray.direction, Double.POSITIVE_INFINITY);
-
-                double pointX = test.x;
-                double pointY = test.y;
-                double pointZ = test.z;
-                Point positionHitPoint = point(pointX,pointY,pointZ);
-
-                Hit hit = new Hit(t,positionHitPoint,planeNormalVector,planeColor);
+                Point point = point(positionHitPoint.x,positionHitPoint.y,positionHitPoint.z);
+                Hit hit = new Hit(point, material, planeNormalVector, t);
                 return hit;
 
             }

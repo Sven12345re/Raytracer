@@ -1,35 +1,55 @@
 package cgg;
 
 import cgtools.Color;
+import cgtools.Direction;
 import cgtools.Point;
 import cgtools.Vector;
+import static cgtools.Vector.*;
+import static cgtools.Vector.point;
 
-class Hit {
-    double t;
-    Point x;
-    Vector n;
-    Color c;
+import java.util.Comparator;
 
-    public Hit(double t, Point x, Vector n, Color c) {
+public class Hit implements Comparable<Hit> {
+
+    public Point positionHitPoint;
+    public Color colorHitPoint;
+    public Direction normalVectorHitPoint;
+    public Material materialHit;
+    double t; //Strahlparameter t
+
+
+    public Hit(Point positionHitPoint, Material materialHit, Direction normalVectorHitPoint, double t) {
+
+        this.positionHitPoint = positionHitPoint;
+        this.normalVectorHitPoint = normalVectorHitPoint;
         this.t = t;
-        this.x = x;
-        this.n = n;
-        this.c = c;
+        this.materialHit = materialHit;
+
+
+    }
+
+    public String toString() {
+        String returnString = "Hitpoint: " + positionHitPoint +
+                "\nnormalVectorHitPoint: " + normalVectorHitPoint;
+        return returnString;
     }
 
     public double getT() {
         return t;
     }
 
-    public Point getX() {
-        return x;
+
+    @Override
+    public int compareTo(Hit o) {
+
+        if (this.t < o.t) {
+            return -1;
+        } else if (this.t > o.t) {
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 
-    public Vector getN() {
-        return n;
-    }
-
-    public Color getC() {
-        return c;
-    }
 }
