@@ -1,12 +1,5 @@
 package cgg;
-
-import java.util.List;
-import cgtools.*;
-
-import static cgtools.Vector.color;
-import static cgtools.Vector.point;
-import static cgtools.Vector.direction;
-
+import cgtools.Color;
 
 public class Emitter implements Material {
 
@@ -19,11 +12,11 @@ public class Emitter implements Material {
     }
     @Override
     public ReflectionProperties properties(Hit hit, Ray ray) {
-        ReflectionProperties properties = new ReflectionProperties(hit, ray, albedo, emission);
+        ReflectionProperties properties = new ReflectionProperties(hit, null, albedo, emission);
         return properties;
     }
 
-    @Override
+
     public Ray reflection(Hit hit) {
         return null;
     }

@@ -30,7 +30,7 @@ public class Ray {
      */
 
         Point pointAt;
-        pointAt = Point.add(originPoint, (Point.multiply(t, direction)));
+        pointAt = Point.add(originPoint, (Direction.multiply(t, direction)));
         return pointAt;
     }
 
