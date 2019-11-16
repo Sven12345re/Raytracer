@@ -34,13 +34,13 @@ public class Scene {
         Shape ground = new Plane(point(0.0, -0.5, 0.0), direction(0, 1, 0), diffuse1);
         scene.add(ground);
 
-        Shape globe1 = new Sphere(point(-0.4, 0.21, -4), 0.6, glass);
+        Shape globe1 = new Sphere(point(0.8, 0, -6), 0.6, diffuse4);
         scene.add(globe1);
 
-        Shape globe2 = new Sphere(point(0, 0.5, -1.5), 0.3, mirror);
+        Shape globe2 = new Sphere(point(0, 0, -2), 0.3, glass);
         scene.add(globe2);
 
-        Shape globe3 = new Sphere(point(-1, 0, -3), 0.5, diffuse);
+        Shape globe3 = new Sphere(point(-1, 0, -5), 0.5, diffuse);
         scene.add(globe3);
 
         Shape globe4 = new Sphere(point(1, 0, -2), 0.2 ,mirror);
