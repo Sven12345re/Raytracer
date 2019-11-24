@@ -12,13 +12,12 @@ import java.util.Comparator;
 public class Hit implements Comparable<Hit> {
 
     public Point positionHitPoint;
-    public Color colorHitPoint;
     public Direction normalVectorHitPoint;
     public Material materialHit;
     double t; //Strahlparameter t
 
 
-    public Hit(Point positionHitPoint, Material materialHit, Direction normalVectorHitPoint, double t) {
+    public Hit(Point positionHitPoint, Direction normalVectorHitPoint, Material materialHit, double t) {
 
         this.positionHitPoint = positionHitPoint;
         this.normalVectorHitPoint = normalVectorHitPoint;
@@ -33,11 +32,6 @@ public class Hit implements Comparable<Hit> {
                 "\nnormalVectorHitPoint: " + normalVectorHitPoint;
         return returnString;
     }
-
-    public double getT() {
-        return t;
-    }
-
 
     @Override
     public int compareTo(Hit o) {

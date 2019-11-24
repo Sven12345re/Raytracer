@@ -16,8 +16,4 @@ public class Emitter implements Material {
         return properties;
     }
 
-
-    public Ray reflection(Hit hit) {
-        return null;
-    }
 }

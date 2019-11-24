@@ -2,9 +2,6 @@ package cgg;
 
 import cgtools.Direction;
 import cgtools.Point;
-import cgtools.Vector;
-
-
 
 public class Ray {
 
@@ -23,16 +20,6 @@ public class Ray {
     }
 
 
-    public Point pointAt(double t) {
-         /*
-   Berechnet für einen Parameter t einen Punkt auf dem Strahl
-    newPoint = originPoint + t * direction
-     */
-
-        Point pointAt;
-        pointAt = Point.add(originPoint, (Direction.multiply(t, direction)));
-        return pointAt;
-    }
 
 
 }

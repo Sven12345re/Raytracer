@@ -19,7 +19,7 @@ public class Group implements Shape {
     @Override
     public Hit intersectWith(Ray r) {
 
-        List<Hit> hitList = new ArrayList<Hit>();
+        List<Hit> hitList = new ArrayList<>();
         for (Shape shape : shapes) {
 
             hit = shape.intersectWith(r);

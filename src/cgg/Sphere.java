@@ -1,10 +1,9 @@
 package cgg;
 
 import cgtools.*;
-import static cgtools.Vector.point;
-import static cgtools.Vector.direction;
 
 
+import static cgtools.Vector.*;
 import static java.lang.Math.sqrt;
 
 public class Sphere implements Shape {
@@ -23,17 +22,17 @@ public class Sphere implements Shape {
     @Override
     public Hit intersectWith(Ray r) {
 
-        Direction oc = Direction.subtract(r.originPoint, sphereCenterPoint); //x0
-        Direction direction = r.direction; //d
+        //Mittelpunkt = c
+        //Radius = r
+        //Ursprung = x0
+        //Richtung = d
 
-        // Folie 72
-        // a = d^2
+        //x0-c Verschiebung der Kugel in den Nullpunkt
+        Direction oc = Direction.subtract(r.originPoint, sphereCenterPoint);
+
+        //Quadratische Gleichung
         double a = Direction.dotProduct(r.direction, r.direction);
-
-        // b = 2 * x0 * d
-        double b = 2 * Direction.dotProduct(r.direction, oc);
-
-        // c = x0^2-r^2
+        double b = 2 * Direction.dotProduct(oc, r.direction);
         double c = Direction.dotProduct(oc, oc) - sphereRadius * sphereRadius;
 
         //Wurzel von abc Formel berechnen
@@ -43,30 +42,27 @@ public class Sphere implements Shape {
         if (a == 0 || discriminant < 0) {
             return null;
         } else {
-            double t1 = (-b - sqrt(discriminant)) / 2;
-            double t2 = (-b + sqrt(discriminant)) / 2;
+            double t1 = (-b - sqrt(discriminant)) / 2*a;
+            double t2 = (-b + sqrt(discriminant)) / 2*a;
 
-
+            //Es zählt das kleinere t
             if (t1 < t2) {
                 t = t1;
             } else {
                 t = t2;
             }
 
-            //mit Schnittpunkt Hit erzeugen
-
-            //Testen ob in t zwischen tmin und tmax liegt
             if (r.tmin < t && r.tmax > t) {
 
 
-                Direction positionHitPoint = Point.multiply(t, r.direction);
-                Direction direction2 = direction(positionHitPoint.x,
-                                        positionHitPoint.y, positionHitPoint.z);
-                Direction direction3 = direction(sphereCenterPoint.x, sphereCenterPoint.y, sphereCenterPoint.z);
-                Direction normal = Direction.divide(Direction.subtract(direction2, direction3), sphereRadius); //divide(subtract(x, center), radius);
+                //Schnittpuntk mit dem Strahl (x0 + t*d)
+                Point hitPoint= add(r.originPoint, multiply(t,r.direction));
 
-                Point point = point(positionHitPoint.x, positionHitPoint.y, positionHitPoint.z);
-                Hit hit = new Hit(point, material, normal, t);
+                //Normalenvektor Kugel (x-c)/r
+               Direction normal = Direction.divide(Direction.subtract(hitPoint, sphereCenterPoint), sphereRadius);
+
+
+                Hit hit = new Hit(hitPoint, normal, material, t);
                 return hit;
 
             }
