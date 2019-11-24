@@ -40,7 +40,7 @@ public class Main {
                 image1.setPixel(x, y, Color.divide(color, n * n));
             }
         }
-        write(image1, "doc/a06-mirrors-glass-1.png");
+        write(image1, "doc/a06-mirrors-glass-2.png");
 
 
     }
