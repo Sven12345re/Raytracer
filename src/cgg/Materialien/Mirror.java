@@ -1,6 +1,10 @@
-package cgg;
+package cgg.Materialien;
 
 
+import cgg.Hit;
+import cgg.Material;
+import cgg.Ray;
+import cgg.ReflectionProperties;
 import cgtools.Random;
 import cgtools.*;
 import static cgtools.Random.random;

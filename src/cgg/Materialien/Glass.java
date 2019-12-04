@@ -1,6 +1,10 @@
-package cgg;
+package cgg.Materialien;
 
 
+import cgg.Hit;
+import cgg.Material;
+import cgg.Ray;
+import cgg.ReflectionProperties;
 import cgtools.Color;
 import cgtools.Direction;
 import cgtools.Random;
@@ -27,6 +31,7 @@ public class Glass implements Material {
         double n11 = 0;
 
         Direction normal = hit.normalVectorHitPoint;
+        //Strahl kommt von innen
         if (dotProduct(normal, ray.direction) > 0) {
 
             //Vertausche Werte von n1 mit n2
@@ -52,6 +57,7 @@ public class Glass implements Material {
         return scattered;
     }
 
+    //Schlick Approximation
     public double schlick(double n1, double n2) {
 
         double r0 = ((n1 - n2) / (n1 + n2)) * ((n1 - n2) / (n1 + n2));
@@ -68,7 +74,7 @@ public class Glass implements Material {
         return rayNew;
 
     }
-
+    //Gebrochene Reflektion
     public Ray refract(Hit hit, Ray ray, double n1, double n2) {
 
         //Brechungsgesetz

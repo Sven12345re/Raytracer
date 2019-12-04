@@ -1,8 +1,10 @@
-package cgg;
+package cgg.Shapes;
 
+import cgg.Hit;
+import cgg.Material;
+import cgg.Ray;
+import cgg.Shape;
 import cgtools.*;
-
-
 import static cgtools.Vector.*;
 import static java.lang.Math.sqrt;
 

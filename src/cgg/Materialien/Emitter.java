@@ -1,4 +1,8 @@
-package cgg;
+package cgg.Materialien;
+import cgg.Hit;
+import cgg.Material;
+import cgg.Ray;
+import cgg.ReflectionProperties;
 import cgtools.Color;
 
 public class Emitter implements Material {

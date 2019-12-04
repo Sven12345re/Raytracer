@@ -20,6 +20,18 @@ public class Ray {
     }
 
 
+    public Point pointAt(double t) {
+
+        Point pointAt;
+        pointAt = Point.add(originPoint, (Point.multiply(t, direction)));
+        return pointAt;
+    }
+
+    public boolean contains(double t) {
+        return tmin < t && t <= tmax;
+    }
+
+
 
 
 }

@@ -1,5 +1,9 @@
-package cgg;
+package cgg.Materialien;
 
+import cgg.Hit;
+import cgg.Material;
+import cgg.Ray;
+import cgg.ReflectionProperties;
 import cgtools.Color;
 import cgtools.Direction;
 import static cgtools.Random.random;
@@ -18,9 +22,9 @@ public class Diffuse implements Material {
     @Override
     public ReflectionProperties properties(Hit hit, Ray ray) {
 
-        Direction r = direction(random() , random() , random() );
+        Direction r = direction(random()*2-1 , random()*2-1 , random()*2-1 );
         while (length(r) <= 1) {
-            r = direction(random() , random(), random() );
+            r = direction(random()*2-1 , random()*2-1, random()*2-1 );
         }
 
         //Addiere Zufällige Richtung r zu Oberflächennormale n

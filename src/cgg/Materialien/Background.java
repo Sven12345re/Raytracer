@@ -1,5 +1,9 @@
-package cgg;
+package cgg.Materialien;
 
+import cgg.Hit;
+import cgg.Material;
+import cgg.Ray;
+import cgg.Shape;
 import cgtools.*;
 import static java.lang.Float.POSITIVE_INFINITY;
 

@@ -1,5 +1,9 @@
-package cgg;
+package cgg.Shapes;
 
+import cgg.Hit;
+import cgg.Material;
+import cgg.Ray;
+import cgg.Shape;
 import cgtools.Direction;
 import cgtools.*;
 
