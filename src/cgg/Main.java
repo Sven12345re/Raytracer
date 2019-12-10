@@ -8,7 +8,7 @@ import cgtools.Matrix;
 import java.io.IOException;
 
 import static cgtools.Vector.*;
-import static cgtools.Matrix.*;
+
 
 public class Main {
 
@@ -27,7 +27,7 @@ public class Main {
         for (int x = 0; x != width; x++) {
             for (int y = 0; y != height; y++) {
                 Color color = color(0, 0, 0);
-                int n = 1;
+                int n = 10;
                 //Stratified Sampling
                 for (int xi = 0; xi < n; xi++) {
                     for (int yi = 0; yi < n; yi++) {
@@ -43,7 +43,9 @@ public class Main {
                 image1.setPixel(x, y, Color.divide(color, n * n));
             }
         }
-        write(image1, "doc/a07-2.png");
+        write(image1, "doc/a08-2.png");
+
+
 
 
     }
@@ -91,7 +93,9 @@ public class Main {
 
     public static Camera makeCamera(){
 
-        Matrix transform = Matrix.multiply(Matrix.rotation(direction(1,0,0),-10),Matrix.rotation(direction(0,1,0),-10), Matrix.translation(direction(-3,2,5)));
+        Matrix transform = Matrix.multiply(Matrix.rotation(direction(1,0,0),-20),
+                            Matrix.rotation(direction(0,1,0),-10),
+                            Matrix.translation(direction(-10,30,80)));
 
 
 

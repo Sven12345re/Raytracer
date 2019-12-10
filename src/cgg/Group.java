@@ -1,18 +1,27 @@
 package cgg;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import cgtools.Matrix;
 
 
 public class Group implements Shape {
-    double t;
+
     List<Shape> shapes;
     Hit hit;
+    Transformation transformation;
 
 
-    public Group(List<Shape> shapes) {
-        this.shapes = shapes;
+
+    public Group(Matrix rotate) {
+        transformation = new Transformation(rotate);
+        shapes = new ArrayList<>();
+    }
+
+    public void addShapes(Shape... shape) {
+        shapes.addAll(Arrays.asList(shape));
 
     }
 
@@ -22,21 +31,21 @@ public class Group implements Shape {
         List<Hit> hitList = new ArrayList<>();
         for (Shape shape : shapes) {
 
-            hit = shape.intersectWith(r);
+            //Transforqm Ray
+            Ray newRay = new Ray(transformation.pointObject(r.originPoint), transformation.directionObject(r.direction), r.tmin, r.tmax);
+
+            hit = shape.intersectWith(newRay);
             if (hit != null) {
                 hitList.add(hit);
             }
         }
-
-        if (!hitList.isEmpty()){
+        if (!hitList.isEmpty()) {
             Collections.sort(hitList);
-            return hitList.get(0);
-        }
-        else {
+            Hit hit2 = hitList.get(0);
+            return new Hit(transformation.pointWorld(hit2.positionHitPoint),transformation.normalWorld(hit2.normalVectorHitPoint),hit2.materialHit,hit2.t );
+        } else {
             return null;
         }
-
-
     }
 }
 
