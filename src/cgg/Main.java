@@ -1,14 +1,10 @@
 package cgg;
 
-import cgtools.Direction;
-import cgtools.Random;
-import cgtools.Color;
-import cgtools.Matrix;
-
+import cgtools.*;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.concurrent.*;
 import static cgtools.Vector.*;
-
 
 public class Main {
 
@@ -16,7 +12,7 @@ public class Main {
     private static Camera camera;
     private static Group group1 = Scene.scene1();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         Image image1;
         final int width = 640;
@@ -24,32 +20,52 @@ public class Main {
         camera=makeCamera();
         image1 = new Image(width, height);
 
+        Callable<Color> calculateOnePixel = () -> {
+
+            Color color = color(0, 0, 0);
+            int n = 1;
+            //Stratified Sampling
+            for (int xi = 0; xi < n; xi++) {
+                for (int yi = 0; yi < n; yi++) {
+
+
+                    final int xFinal = xi;
+                    final int yFinal = yi;
+
+                    double rx = Random.random();
+                    double ry = Random.random();
+                    double xs = xFinal + (xi + rx) / n;
+                    double ys = yFinal + (yi + ry) / n;
+                    color = color(0, 0, 0);
+                    color = Color.add(color, pixelColor(xs, ys));
+
+                    image1.setPixel(xFinal, yFinal, Color.divide(color, n * n));
+                }
+            }
+
+            return color;
+        };
+
         for (int x = 0; x != width; x++) {
             for (int y = 0; y != height; y++) {
-                Color color = color(0, 0, 0);
-                int n = 10;
-                //Stratified Sampling
-                for (int xi = 0; xi < n; xi++) {
-                    for (int yi = 0; yi < n; yi++) {
 
-                        double rx = Random.random();
-                        double ry = Random.random();
-                        double xs = x + (xi + rx) / n;
-                        double ys = y + (yi + ry) / n;
+                // Pool creation
+                ExecutorService pool = Executors.newFixedThreadPool(4);
+                // Task submission. Calculation starts immediately.
+                pool.submit(calculateOnePixel);
 
-                        color = Color.add(color, pixelColor(xs, ys));
-                    }
-                }
-                image1.setPixel(x, y, Color.divide(color, n * n));
+                pool.shutdown();
+
             }
         }
-        write(image1, "doc/a08-2.png");
 
-
-
+        write(image1, "doc/a09-benchmark-scene.png");
+        long startTime = System.currentTimeMillis();
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("ElapsedTime:"+ elapsedTime);
 
     }
-
 
 
     static Color pixelColor(double x, double y) {
