@@ -60,6 +60,7 @@ public class Main {
         }
 
         write(image1, "doc/a09-benchmark-scene.png");
+
         long startTime = System.currentTimeMillis();
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;

@@ -43,7 +43,7 @@ public class Scene {
         //Untergeordnete Group
         Matrix matrix = Matrix.multiply(Matrix.rotation(direction(0, 1, 0), 0) ,Matrix.translation(direction(0, 0, 0)));
         Group sphereGroup = new Group(matrix);
-        for(int i = 0; i < 1000; i++){
+        for(int i = 0; i < 10; i++){
 
             Shape sphere = new Sphere(point(1, 0, -i), 0.6, mirror2);
             sphereGroup.addShapes(sphere);
@@ -59,7 +59,7 @@ public class Scene {
                             Matrix.translation(direction(7, 10, 150)),
                             Matrix.rotation(direction(0,0,1) , 45));
         Group sphereGroup3 = new Group(matrix3);
-        for(int i = 0; i < 50; i ++){
+        for(int i = 0; i < 10; i ++){
 
             Shape sphere = new Sphere(point(1, 0, -i), 0.6, emitter3);
             sphereGroup2.addShapes(sphere);
